@@ -96,7 +96,8 @@ void Shader::setupAttribs() const
 
 int Shader::getLocation(const char * name) 
 {
-	return glGetAttribLocation(idShader, name);
+	//FELIPPEEEEEEE I GONNNA KILLL YOU!!!!!!! THIS IS THE FUCKING BUG!!!!!
+    return glGetUniformLocation(idShader, name);
 }
 
 void Shader::setInt(int loc, int val)
