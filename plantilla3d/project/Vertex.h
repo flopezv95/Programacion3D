@@ -2,13 +2,9 @@
 
 #include "../glm/glm.hpp"
 
-class Vertex
+
+struct Vertex
 {
-public:
-	Vertex(glm::vec3 vertex, glm::vec3 color);
-	~Vertex() {};
-	void SetPosition(float pX, float pY, float pZ);
-	glm::vec3 GetVertex() { return m_myVector; }
-	glm::vec3 m_myVector;
-	glm::vec3 m_myVectorColor;
+	glm::vec3 position;
+	glm::vec3 color;
 };

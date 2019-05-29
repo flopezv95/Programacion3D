@@ -12,37 +12,38 @@ Shader::Shader(const std::string& vertexPath, const std::string& fragmentPath)
 {
 	std::string vertexShaderString = readString(vertexPath);
 	std::string fragmentShaderString = readString(fragmentPath);
-	
+
 	const char * vertexShaderCode = vertexShaderString.c_str();
 	const char * fragmentShaderCode = fragmentShaderString.c_str();
+
+	idShader = glCreateProgram();
 
 	vertexShader = glCreateShader(GL_VERTEX_SHADER);
 	glShaderSource(vertexShader, 1, &vertexShaderCode, NULL);
 	GLint retCode; 
 	glCompileShader(vertexShader);
 	glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &retCode);
-	
+
 	if (retCode == GL_FALSE) 
 	{
 		getError(vertexShader);
 	}
-	
+
 	fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-	
+
 	glShaderSource(fragmentShader, 1, &fragmentShaderCode, NULL);
 	GLint retCode2;
 	glCompileShader(fragmentShader);
 	glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &retCode2);
+
 	if (retCode2 == GL_FALSE)
 	{
 		getError(fragmentShader);
 	}
 
-	idShader = glCreateProgram();
-	
 	glAttachShader(idShader, vertexShader);
 	glAttachShader(idShader, fragmentShader);
-	
+
 	glLinkProgram(idShader);
 
 	glGetShaderiv(idShader, GL_LINK_STATUS, &retCode2);
@@ -51,14 +52,10 @@ Shader::Shader(const std::string& vertexPath, const std::string& fragmentPath)
 		getError(fragmentShader);
 	}
 
-
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
 
 	setupAttribs();
-
-	//m_vposLoc = getLocation("vpos");
-	//m_vcolorLoc = getLocation("vcolor");
 }
 
 uint32_t Shader::getId() const
@@ -79,24 +76,23 @@ void Shader::use()
 	glUseProgram(idShader);
 }
 
-void Shader::setupAttribs() const
+void Shader::setupAttribs() 
 {
-
-	//if (m_vposLoc != -1) {
-	//	glEnableVertexAttribArray(0);
-	//	glVertexAttribPointer(0, 3, GL_FLOAT, false, sizeof(Vertex), reinterpret_cast<const void*>(offsetof(Vertex, m_myVector)));
-	//	printf("HERE");
-	////}
-	////if (m_vcolorLoc != -1) {
-	//	glEnableVertexAttribArray(1);
-	//	glVertexAttribPointer(1, 3, GL_FLOAT, false, sizeof(Vertex), reinterpret_cast<const void*>(offsetof(Vertex, m_myVectorColor)));
-	//	printf("HERE");
-	//}
+	m_vposLoc =  glGetAttribLocation(idShader, "vpos");
+	if (m_vposLoc != -1) {
+		glEnableVertexAttribArray(m_vposLoc);
+		glVertexAttribPointer(m_vposLoc, 3, GL_FLOAT, false, sizeof(Vertex), reinterpret_cast<const void*>(offsetof(Vertex, position)));
+	}
+	m_vcolorLoc = glGetAttribLocation(idShader, "vcolor");;
+	if (m_vcolorLoc != -1) {
+		glEnableVertexAttribArray(m_vcolorLoc);
+		glVertexAttribPointer(m_vcolorLoc, 3, GL_FLOAT, false, sizeof(Vertex), reinterpret_cast<const void*>(offsetof(Vertex, color)));
+	}
 }
 
 int Shader::getLocation(const char * name) 
 {
-	return glGetAttribLocation(idShader, name);
+	return glGetUniformLocation(idShader, name);
 }
 
 void Shader::setInt(int loc, int val)

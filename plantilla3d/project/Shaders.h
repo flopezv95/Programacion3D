@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include "Vertex.h"
+#include"../glew/GL/glew.h"
 
 class Shader
 {
@@ -10,7 +11,7 @@ public:
 	~Shader() {};
 	uint32_t getId() const;
 	const char* getError(uint32_t shader) const;
-	void  setupAttribs() const;
+	void  setupAttribs();
 	int  getLocation(const char* name);
 	void  setInt(int loc, int val); 
 	void  setFloat(int loc, float val); 
@@ -22,10 +23,11 @@ public:
 private:
 	uint32_t vertexShader;
 	uint32_t fragmentShader;
-	uint32_t idShader;
-	uint32_t m_vposLoc;
-	uint32_t m_vcolorLoc;
+	GLuint idShader;
+	int m_vposLoc;
+	int m_vcolorLoc;
 	glm::mat4 m_mvp;
+	
 };
 
 std::string readString(const std::string& filename);

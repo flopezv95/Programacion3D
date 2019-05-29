@@ -1,9 +1,9 @@
 uniform mat4 mvp;
 attribute vec3 vpos;
-attribute vec3 vcolor;
-varying vec3 fcolor;
+attribute vec4 vcolor; 
+varying vec4 fcolor;
 
 void main() {
-	gl_Position = vec4(vpos, 1);
-	fcolor = vcolor;
+    gl_Position = mvp * vec4(vpos, 1);
+	fcolor = vcolor; 
 }
