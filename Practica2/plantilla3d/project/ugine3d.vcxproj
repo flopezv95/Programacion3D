@@ -141,6 +141,7 @@
     <ClInclude Include="..\lib\glfw\glfw3native.h" />
     <ClInclude Include="Buffer.h" />
     <ClInclude Include="Shaders.h" />
+    <ClInclude Include="State.h" />
     <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <ItemGroup>
