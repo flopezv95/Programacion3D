@@ -88,7 +88,7 @@ glm::mat4 calculateMatrix(float angle)
 {
 	glm::mat4 proj = glm::perspective<float>(glm::radians(45.0f), static_cast<float>(SCREEN_WIDTH) / SCREEN_HEIGHT, 0.1f, 100.0f);
 	glm::mat4 view = glm::lookAt(glm::vec3(0.0f, 0.0f, 6.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	glm::mat4 model = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.0f, 0.0f));
+	glm::mat4 model = glm::translate(glm::mat4(), glm::vec3(2.0f, 0.0f, 0.0f));
 	model = glm::rotate(model, glm::radians(angle), glm::vec3(0.0f, 1.0f, 0.0f));
 	return  proj * view * model;
 }

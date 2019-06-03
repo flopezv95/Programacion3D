@@ -5,7 +5,7 @@
 #include "Shaders.h"
 
 class Vertex;
-
+//Soy maluma baby
 class Buffer
 {
 public:

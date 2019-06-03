@@ -12,4 +12,3 @@ public:
 	static glm::mat4     modelMatrix;
 };
 
-std::shared_ptr<Shader> State::defaultShader = nullptr;

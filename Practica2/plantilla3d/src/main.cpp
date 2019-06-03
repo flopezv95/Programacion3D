@@ -8,6 +8,7 @@
 #include <vector>
 #include "../project/Buffer.h"
 #include "../project/State.h"
+#include "../project/Mesh.h"
 #include "../glm/gtc/matrix_transform.hpp" // glm::translate, glm::rotate, glm::scale, glm::perspective
 #include "../glm/gtc/type_ptr.hpp" // glm::value_ptr
 
@@ -33,6 +34,8 @@ int main() {
 		return -1;
 	}
 
+	Mesh myMesh;
+
 	glm::vec3 color1(0.0f, 1.0f, 1.0f);
 	std::vector<Vertex> myVertex;
 	myVertex.push_back({ glm::vec3(-1.0f, -1.0f, 0.0f), color1 });
@@ -41,7 +44,9 @@ int main() {
 
 	std::vector<GLuint> indices = { 0, 1, 2 };
 
-	Buffer *myBuffer = new Buffer(myVertex, indices);
+	//Buffer *myBuffer = new Buffer(myVertex, indices);
+
+	myMesh.addBuffer(std::shared_ptr<Buffer>(new Buffer(myVertex, indices)));
 
 	// main loop
 	float angle = 0;
@@ -54,11 +59,8 @@ int main() {
 		glClearColor(0.2, 0.2, 0.2, 1.0);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		State::defaultShader->use();
-		angle += (32*deltaTime);
-		State::defaultShader->setMatrix(State::defaultShader->getLocation("mvp"), calculateMatrix(angle));
+		myMesh.draw(deltaTime);
 
-		myBuffer->draw(State::defaultShader);
 		glUseProgram(0);
 		
 		// refresh screen
@@ -70,14 +72,6 @@ int main() {
 	glfwTerminate();
 }
 
-glm::mat4 calculateMatrix(float angle)
-{
-	glm::mat4 proj = glm::perspective<float>(glm::radians(45.0f), static_cast<float>(SCREEN_WIDTH) / SCREEN_HEIGHT, 0.1f, 100.0f);
-	glm::mat4 view = glm::lookAt(glm::vec3(0.0f, 0.0f, 6.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	glm::mat4 model = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(angle), glm::vec3(0.0f, 1.0f, 0.0f));
-	return  proj * view * model;
-}
 
 int Init(GLFWwindow* win)
 {
@@ -101,6 +95,9 @@ int Init(GLFWwindow* win)
 	Shader *myShader = new Shader("data/vertex.glsl", "data/fragment.glsl");
 
 	State::defaultShader = std::shared_ptr<Shader>(myShader);
+	State::projectionMatrix = glm::perspective<float>(glm::radians(45.0f), static_cast<float>(SCREEN_WIDTH) / SCREEN_HEIGHT, 0.1f, 100.0f);
+	State::viewMatrix = glm::lookAt(glm::vec3(0.0f, 0.0f, 6.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	State::modelMatrix = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.0f, 0.0f));
 
 	return 0;
 }
