@@ -9,13 +9,13 @@
 #include "../project/Buffer.h"
 #include "../project/State.h"
 #include "../project/Mesh.h"
+#include "../project/Model.h"
 #include "../glm/gtc/matrix_transform.hpp" // glm::translate, glm::rotate, glm::scale, glm::perspective
 #include "../glm/gtc/type_ptr.hpp" // glm::value_ptr
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
 
-glm::mat4 calculateMatrix(float angle);
 int Init(GLFWwindow* win);
 
 int main() {
@@ -44,9 +44,10 @@ int main() {
 
 	std::vector<GLuint> indices = { 0, 1, 2 };
 
-	//Buffer *myBuffer = new Buffer(myVertex, indices);
 
 	myMesh.addBuffer(std::shared_ptr<Buffer>(new Buffer(myVertex, indices)));
+
+	Model * modelEntity = new Model(std::shared_ptr<Mesh>(&myMesh));
 
 	// main loop
 	float angle = 0;
@@ -59,7 +60,8 @@ int main() {
 		glClearColor(0.2, 0.2, 0.2, 1.0);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		myMesh.draw(deltaTime);
+		modelEntity->draw(deltaTime);
+		//myMesh.draw(deltaTime);
 
 		glUseProgram(0);
 		
