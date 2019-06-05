@@ -8,7 +8,7 @@ class Model : public Entity
 {
 public:
 	Model(const std::shared_ptr<Mesh>& mesh); 
-	virtual void draw(float deltaTime) override;
+	virtual void draw(float deltaTime, float angle) override;
 private:
 	std::shared_ptr<Mesh> myMesh;
 };

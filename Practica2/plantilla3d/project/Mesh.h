@@ -20,5 +20,5 @@ public:
 	float angle;
 	std::shared_ptr<Buffer>& getBuffer(size_t index);
 	std::vector<MeshMember> mMyMeshes;
-	void draw(float deltaTime);
+	void draw(float deltaTime, float angleRot);
 };

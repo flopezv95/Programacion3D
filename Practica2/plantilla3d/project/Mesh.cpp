@@ -34,13 +34,13 @@ std::shared_ptr<Buffer>& Mesh::getBuffer(size_t index)
 	return mMyMeshes[index].myBuffer;
 }
 
-void Mesh::draw(float deltaTime)
+void Mesh::draw(float deltaTime,float angleRot)
 {
 	for (MeshMember myElement : mMyMeshes)
 	{
 		myElement.myShader->use();
 
-		angle += (32 * deltaTime);
+		angle += (angleRot * deltaTime);
 		glm::mat4 proj = State::projectionMatrix;
 		glm::mat4 view = State::viewMatrix;
 		glm::mat4 model = State::modelMatrix;

@@ -10,6 +10,7 @@
 #include "../project/State.h"
 #include "../project/Mesh.h"
 #include "../project/Model.h"
+#include "../project/Camera.h"
 #include "../glm/gtc/matrix_transform.hpp" // glm::translate, glm::rotate, glm::scale, glm::perspective
 #include "../glm/gtc/type_ptr.hpp" // glm::value_ptr
 
@@ -44,10 +45,14 @@ int main() {
 
 	std::vector<GLuint> indices = { 0, 1, 2 };
 
-
 	myMesh.addBuffer(std::shared_ptr<Buffer>(new Buffer(myVertex, indices)));
 
 	Model * modelEntity = new Model(std::shared_ptr<Mesh>(&myMesh));
+
+	Camera myCamera;
+	myCamera.setProjection(glm::perspective<float>(glm::radians(45.0f), static_cast<float>(SCREEN_WIDTH) / SCREEN_HEIGHT, 0.1f, 100.0f));
+	myCamera.setViewport(glm::ivec4(0.0f, 0.0f, SCREEN_WIDTH, SCREEN_HEIGHT));
+	myCamera.setClearColor(glm::vec3(0.2, 0.2, 0.2));
 
 	// main loop
 	float angle = 0;
@@ -57,11 +62,9 @@ int main() {
 		float deltaTime = static_cast<float>(glfwGetTime() - lastTime);
 		lastTime = glfwGetTime();
 
-		glClearColor(0.2, 0.2, 0.2, 1.0);
-		glClear(GL_COLOR_BUFFER_BIT);
-
-		modelEntity->draw(deltaTime);
-		//myMesh.draw(deltaTime);
+		myCamera.prepare();
+		
+		modelEntity->draw(deltaTime, 32.0f);
 
 		glUseProgram(0);
 		

@@ -6,7 +6,7 @@ Model::Model(const std::shared_ptr<Mesh>& mesh)
 	myMesh = mesh;
 }
 
-void Model::draw(float deltaTime)
+void Model::draw(float deltaTime, float angle)
 {
-	myMesh->draw(deltaTime);
+	myMesh->draw(deltaTime,angle);
 }
