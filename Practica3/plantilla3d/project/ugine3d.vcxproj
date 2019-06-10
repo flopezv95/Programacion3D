@@ -146,6 +146,7 @@
     <ClInclude Include="Model.h" />
     <ClInclude Include="Shaders.h" />
     <ClInclude Include="State.h" />
+    <ClInclude Include="Texture.h" />
     <ClInclude Include="Vertex.h" />
     <ClInclude Include="World.h" />
   </ItemGroup>
@@ -159,6 +160,7 @@
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Shaders.cpp" />
     <ClCompile Include="State.cpp" />
+    <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Vertex.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>
