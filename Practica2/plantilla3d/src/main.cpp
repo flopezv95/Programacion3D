@@ -11,6 +11,7 @@
 #include "../project/Mesh.h"
 #include "../project/Model.h"
 #include "../project/Camera.h"
+#include "../project/World.h"
 #include "../glm/gtc/matrix_transform.hpp" // glm::translate, glm::rotate, glm::scale, glm::perspective
 #include "../glm/gtc/type_ptr.hpp" // glm::value_ptr
 
@@ -49,10 +50,14 @@ int main() {
 
 	Model * modelEntity = new Model(std::shared_ptr<Mesh>(&myMesh));
 
-	Camera myCamera;
-	myCamera.setProjection(glm::perspective<float>(glm::radians(45.0f), static_cast<float>(SCREEN_WIDTH) / SCREEN_HEIGHT, 0.1f, 100.0f));
-	myCamera.setViewport(glm::ivec4(0.0f, 0.0f, SCREEN_WIDTH, SCREEN_HEIGHT));
-	myCamera.setClearColor(glm::vec3(0.2, 0.2, 0.2));
+	Camera* myCamera=new Camera;
+	myCamera->setProjection(glm::perspective<float>(glm::radians(45.0f), static_cast<float>(SCREEN_WIDTH) / SCREEN_HEIGHT, 0.1f, 100.0f));
+	myCamera->setViewport(glm::ivec4(0.0f, 0.0f, SCREEN_WIDTH, SCREEN_HEIGHT));
+	myCamera->setClearColor(glm::vec3(0.2, 0.2, 0.2));
+
+	World* myWorld = new World;
+	myWorld->addEntity(std::shared_ptr<Model>(modelEntity));
+	myWorld->addEntity(std::shared_ptr<Camera>(myCamera));
 
 	// main loop
 	float angle = 0;
@@ -61,11 +66,10 @@ int main() {
 		// get delta time
 		float deltaTime = static_cast<float>(glfwGetTime() - lastTime);
 		lastTime = glfwGetTime();
-
-		myCamera.prepare();
-		
-		modelEntity->draw(deltaTime, 32.0f);
-
+		if (myWorld->getNumEntities() > 0)
+		{
+			myWorld->draw(deltaTime, 32.0f);
+		}
 		glUseProgram(0);
 		
 		// refresh screen

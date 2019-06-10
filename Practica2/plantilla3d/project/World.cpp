@@ -3,6 +3,7 @@
 #include "Entity.h"
 #include "Camera.h"
 
+
 void World::addEntity(const std::shared_ptr<Entity>& entity)
 {
 	myEntityList.push_back(entity);
