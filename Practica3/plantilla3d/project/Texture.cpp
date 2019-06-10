@@ -11,11 +11,19 @@ std::shared_ptr<Texture> Texture::load(const char * filename)
 	int*comp = NULL; //Variable para la funcion para recuperar la textura
 	int reqcomp = 4;
 	Texture* myTexture = new Texture;
-	unsigned char* arrayBytes = stbi_load(filename, &myTexture->textureSize.x, &myTexture->textureSize.y, comp, reqcomp);
+	stbi_uc * arrayBytes = stbi_load(filename, &myTexture->textureSize.x, &myTexture->textureSize.y, comp, reqcomp);
 	if (arrayBytes != nullptr)
 	{
 		glGenTextures(1, &myTexture->Id);
 		myTexture->bind();
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, myTexture->textureSize.x, myTexture->textureSize.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, arrayBytes);
+		glGenerateMipmap(GL_TEXTURE_2D);
+		stbi_image_free(arrayBytes);
+
 	}
 	return std::shared_ptr<Texture>();
 }
