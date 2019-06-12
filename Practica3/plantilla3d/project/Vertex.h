@@ -6,5 +6,5 @@ struct Vertex
 {
 	glm::vec3 position;
 	glm::vec3 color;
-	const char* textureUbication;
+	glm::vec2 m_textureCoord;
 };

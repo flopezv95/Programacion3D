@@ -25,7 +25,7 @@ std::shared_ptr<Texture> Texture::load(const char * filename)
 		stbi_image_free(arrayBytes);
 
 	}
-	return std::shared_ptr<Texture>();
+	return std::shared_ptr<Texture>(myTexture);
 }
 
 uint32_t Texture::getId() const

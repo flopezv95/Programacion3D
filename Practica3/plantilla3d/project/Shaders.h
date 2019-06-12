@@ -11,7 +11,7 @@ public:
 	~Shader() {};
 	uint32_t getId() const;
 	const char* getError(uint32_t shader) const;
-	void  setupAttribs();
+	void  setupAttribs(bool bThereIsTex);
 	int  getLocation(const char* name);
 	void  setInt(int loc, int val); 
 	void  setFloat(int loc, float val); 
@@ -26,6 +26,7 @@ private:
 	GLuint idShader;
 	int m_vposLoc;
 	int m_vcolorLoc;
+	int m_vtextLoc;
 	glm::mat4 m_mvp;
 	
 };

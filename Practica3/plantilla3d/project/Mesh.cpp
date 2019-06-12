@@ -2,24 +2,18 @@
 #include "Mesh.h"
 #include "Buffer.h"
 #include "State.h"
+#include "Material.h"
 #include "../glm/gtc/matrix_transform.hpp"
 
 
-void Mesh::addBuffer(const std::shared_ptr<Buffer>& buffer, const std::shared_ptr<Shader>& shader)
+void Mesh::addBuffer(const std::shared_ptr<Buffer>& buffer, Material& material)
 {
 	MeshMember tempMesh;
 	if (buffer != nullptr)
 	{
 		tempMesh.myBuffer = buffer;
 	}
-	if (shader == nullptr)
-	{
-		tempMesh.myShader = State::defaultShader;
-	}
-	else
-	{
-		tempMesh.myShader = shader;
-	}
+	tempMesh.myMaterial = &material;
 
 	mMyMeshes.push_back(tempMesh);
 }
@@ -34,20 +28,22 @@ std::shared_ptr<Buffer>& Mesh::getBuffer(size_t index)
 	return mMyMeshes[index].myBuffer;
 }
 
+const Material & Mesh::getMaterial(size_t index) const
+{
+	return *mMyMeshes[index].myMaterial;
+}
+
+Material & Mesh::getMaterial(size_t index)
+{
+	return *mMyMeshes[index].myMaterial;
+}
+
 void Mesh::draw(float deltaTime,float angleRot)
 {
 	for (MeshMember myElement : mMyMeshes)
 	{
-		myElement.myShader->use();
+		myElement.myMaterial->prepare(deltaTime, angleRot);
 
-		angle += (angleRot * deltaTime);
-		glm::mat4 proj = State::projectionMatrix;
-		glm::mat4 view = State::viewMatrix;
-		glm::mat4 model = State::modelMatrix;
-		model = glm::rotate(model, glm::radians(angle), glm::vec3(0.0f, 1.0f, 0.0f));
-
-		State::defaultShader->setMatrix(State::defaultShader->getLocation("mvp"), proj*view*model);
-
-		myElement.myBuffer->draw(myElement.myShader);
+		myElement.myBuffer->draw(myElement.myMaterial->getShader());
 	}
 }

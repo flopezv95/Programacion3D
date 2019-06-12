@@ -29,7 +29,7 @@ void Buffer::draw(std::shared_ptr<Shader> shader)
 {
 	 glBindVertexArray(m_VAO);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IBO);
-    (*shader).setupAttribs();
+    (*shader).setupAttribs(false);
     glDrawElements(GL_TRIANGLES, (GLsizei)m_indices.size(), GL_UNSIGNED_INT, 0);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     glBindVertexArray(0);

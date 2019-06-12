@@ -12,6 +12,7 @@
 #include "../project/Model.h"
 #include "../project/Camera.h"
 #include "../project/World.h"
+#include "../project/Material.h"
 #include "../glm/gtc/matrix_transform.hpp" // glm::translate, glm::rotate, glm::scale, glm::perspective
 #include "../glm/gtc/type_ptr.hpp" // glm::value_ptr
 
@@ -46,7 +47,9 @@ int main() {
 
 	std::vector<GLuint> indices = { 0, 1, 2 };
 
-	myMesh.addBuffer(std::shared_ptr<Buffer>(new Buffer(myVertex, indices)));
+	Material* myMaterial = new Material();
+
+	myMesh.addBuffer(std::shared_ptr<Buffer>(new Buffer(myVertex, indices)),*myMaterial);
 
 	Model * modelEntity = new Model(std::shared_ptr<Mesh>(&myMesh));
 
