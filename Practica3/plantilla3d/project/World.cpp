@@ -53,7 +53,7 @@ void World::update(float deltaTime)
 	}
 }
 
-void World::draw(float deltaTime, float angle)
+void World::draw(float deltaTime, float angle, bool rotateInTime)
 {
 	for (std::shared_ptr<Camera> camera : myCameraList)
 	{
@@ -61,7 +61,7 @@ void World::draw(float deltaTime, float angle)
 
 		for (std::shared_ptr<Entity> entity : myEntityList)
 		{
-			entity.get()->draw(deltaTime, angle);
+			entity.get()->draw(deltaTime, angle, rotateInTime);
 		}
 	}
 }

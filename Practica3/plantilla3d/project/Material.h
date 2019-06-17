@@ -15,7 +15,7 @@ public:
 	void setShader(const std::shared_ptr<Shader>& shader);
 	const std::shared_ptr<Texture>& getTexture() const;
 	void setTexture(const std::shared_ptr<Texture>& tex);
-	void prepare(float deltaTime, float angleRot);
+	void prepare(float deltaTime, float angleRot, float rotateInTime = false);
 private:
 	std::shared_ptr<Texture> myTexture;
 	std::shared_ptr<Shader> myShader;

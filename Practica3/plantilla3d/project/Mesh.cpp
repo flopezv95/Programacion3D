@@ -38,11 +38,11 @@ Material & Mesh::getMaterial(size_t index)
 	return *mMyMeshes[index].myMaterial;
 }
 
-void Mesh::draw(float deltaTime,float angleRot)
+void Mesh::draw(float deltaTime,float angleRot, float rotateInTime)
 {
 	for (MeshMember myElement : mMyMeshes)
 	{
-		myElement.myMaterial->prepare(deltaTime, angleRot);
+		myElement.myMaterial->prepare(deltaTime, angleRot, rotateInTime);
 
 		myElement.myBuffer->draw(myElement.myMaterial->getShader());
 	}

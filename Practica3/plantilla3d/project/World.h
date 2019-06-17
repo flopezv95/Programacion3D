@@ -15,7 +15,7 @@ public:
 	const std::shared_ptr<Entity>& getEntity(size_t index) const;
 	std::shared_ptr<Entity>& getEntity(size_t index);
 	void update(float deltaTime); 
-	void draw(float deltaTime, float angle);
+	void draw(float deltaTime, float angle, bool rotateInTime = false);
 
 private:
 	std::vector <std::shared_ptr<Entity>> myEntityList;

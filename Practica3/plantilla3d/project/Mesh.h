@@ -22,5 +22,5 @@ public:
 	const Material& getMaterial(size_t index) const; 
 	Material& getMaterial(size_t index);
 	std::vector<MeshMember> mMyMeshes;
-	void draw(float deltaTime, float angleRot);
+	void draw(float deltaTime, float angleRot, float rotateInTime = false);
 };

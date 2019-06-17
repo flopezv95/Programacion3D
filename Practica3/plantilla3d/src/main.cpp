@@ -13,6 +13,7 @@
 #include "../project/Camera.h"
 #include "../project/World.h"
 #include "../project/Material.h"
+#include "../project/Texture.h"
 #include "../glm/gtc/matrix_transform.hpp" // glm::translate, glm::rotate, glm::scale, glm::perspective
 #include "../glm/gtc/type_ptr.hpp" // glm::value_ptr
 
@@ -29,7 +30,7 @@ int main() {
 		return -1;
 	}
 
-	GLFWwindow* win = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Practica1", nullptr, nullptr);
+	GLFWwindow* win = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Practica3", nullptr, nullptr);
 
 
 	if (Init(win)!=0)
@@ -41,15 +42,21 @@ int main() {
 
 	glm::vec3 color1(0.0f, 1.0f, 1.0f);
 	std::vector<Vertex> myVertex;
-	myVertex.push_back({ glm::vec3(-1.0f, -1.0f, 0.0f), color1 });
-	myVertex.push_back({ glm::vec3(1.0f, -1.0f, 0.0f), color1 });
-	myVertex.push_back({ glm::vec3(0.0f,  1.0f, 0.0f), color1 });
+	myVertex.push_back({ glm::vec3(0.5f, 0.5f, 0.0f), color1, glm::vec2(1.0f, 1.0f) });
+	myVertex.push_back({ glm::vec3(0.5f, -0.5f, 0.0f), color1, glm::vec2(1.0f, 0.0f) });
+	myVertex.push_back({ glm::vec3(-0.5f, -0.5f, 0.0f), color1, glm::vec2(0.0f, 0.0f) });
+	myVertex.push_back({ glm::vec3(-0.5f, 0.5f, 0.0f), color1, glm::vec2(0.0f, 1.0f) });
 
 	std::vector<GLuint> indices = { 0, 1, 2 };
 
-	Material* myMaterial = new Material();
+	std::shared_ptr<Texture> frontTexture =Texture::load("data/front.png");
+	std::shared_ptr<Texture> topTexture = Texture::load("data/top.png");
+
+	Material* myMaterial = new Material(frontTexture);
+	Material* myMaterial2 = new Material(topTexture);
 
 	myMesh.addBuffer(std::shared_ptr<Buffer>(new Buffer(myVertex, indices)),*myMaterial);
+	myMesh.addBuffer(std::shared_ptr<Buffer>(new Buffer(myVertex, indices)), *myMaterial2);
 
 	Model * modelEntity = new Model(std::shared_ptr<Mesh>(&myMesh));
 
@@ -71,7 +78,7 @@ int main() {
 		lastTime = glfwGetTime();
 		if (myWorld->getNumEntities() > 0)
 		{
-			myWorld->draw(deltaTime, 32.0f);
+			myWorld->draw(deltaTime, 32.0f );
 		}
 		glUseProgram(0);
 		

@@ -57,11 +57,17 @@ void Material::setTexture(const std::shared_ptr<Texture>& tex)
 	myTexture = tex;
 }
 
-void Material::prepare(float deltaTime, float angleRot)
+void Material::prepare(float deltaTime, float angleRot, float rotateInTime)
 {
 	myShader->use();
-
-	angle += (angleRot * deltaTime);
+	if (rotateInTime)
+	{
+		angle += (angleRot * deltaTime);
+	}
+	else
+	{
+		angle = angleRot;
+	}
 	glm::mat4 proj = State::projectionMatrix;
 	glm::mat4 view = State::viewMatrix;
 	glm::mat4 model = State::modelMatrix;
@@ -72,5 +78,10 @@ void Material::prepare(float deltaTime, float angleRot)
 	{
 		myTexture->bind();
 		myShader->setInt(myShader->getLocation("texSampler"), 0);
+		myShader->setInt(myShader->getLocation("useTexture"), 1);
+	}
+	else
+	{
+		myShader->setInt(myShader->getLocation("useTexture"), 0);
 	}
 }

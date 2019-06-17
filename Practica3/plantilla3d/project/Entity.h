@@ -13,7 +13,7 @@ public:
 	void   setScale(const glm::vec3& scale);
 	void   move(const glm::vec3& vec);
 	virtual void update(float deltaTime) {};
-	virtual void draw(float deltaTime, float angle) {};
+	virtual void draw(float deltaTime, float angle, bool rotateInTime = false) {};
 private:
 	glm::vec3 mPosition;
 	glm::vec3 mRotation;
