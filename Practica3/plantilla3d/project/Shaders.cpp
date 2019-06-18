@@ -54,8 +54,10 @@ Shader::Shader(const std::string& vertexPath, const std::string& fragmentPath)
 
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
+	m_vposLoc = glGetAttribLocation(idShader, "vpos");
+	m_vcolorLoc = glGetAttribLocation(idShader, "vcolor");
+	m_vtextLoc = glGetAttribLocation(idShader, "vtex");
 
-	setupAttribs(false);
 }
 
 uint32_t Shader::getId() const
@@ -78,26 +80,21 @@ void Shader::use()
 
 void Shader::setupAttribs(bool bThereIsTex)
 {
-	m_vposLoc =  glGetAttribLocation(idShader, "vpos");
+	
 	if (m_vposLoc != -1) {
 		glEnableVertexAttribArray(m_vposLoc);
 		glVertexAttribPointer(m_vposLoc, 3, GL_FLOAT, false, sizeof(Vertex), reinterpret_cast<const void*>(offsetof(Vertex, position)));
 	}
-	if (!bThereIsTex)
-	{
-		m_vcolorLoc = glGetAttribLocation(idShader, "vcolor");;
-		if (m_vcolorLoc != -1) {
-			glEnableVertexAttribArray(m_vcolorLoc);
-			glVertexAttribPointer(m_vcolorLoc, 3, GL_FLOAT, false, sizeof(Vertex), reinterpret_cast<const void*>(offsetof(Vertex, color)));
-		}
+
+		
+	if (m_vcolorLoc != -1) {
+		glEnableVertexAttribArray(m_vcolorLoc);
+		glVertexAttribPointer(m_vcolorLoc, 3, GL_FLOAT, false, sizeof(Vertex), reinterpret_cast<const void*>(offsetof(Vertex, color)));
 	}
-	else
-	{
-		m_vtextLoc = glGetAttribLocation(idShader, "vtex");
-		if (m_vtextLoc != -1) { 
-			glEnableVertexAttribArray(m_vtextLoc); 
-			glVertexAttribPointer(m_vtextLoc, 2, GL_FLOAT, false, sizeof(Vertex), reinterpret_cast<const void*>(offsetof(Vertex, m_textureCoord))); 
-		}
+
+	if (m_vtextLoc != -1) { 
+		glEnableVertexAttribArray(m_vtextLoc); 
+		glVertexAttribPointer(m_vtextLoc, 2, GL_FLOAT, false, sizeof(Vertex), reinterpret_cast<const void*>(offsetof(Vertex, m_textureCoord))); 
 	}
 }
 

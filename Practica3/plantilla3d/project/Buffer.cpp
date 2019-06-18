@@ -10,9 +10,6 @@ Buffer::Buffer(std::vector<Vertex> myVertex, std::vector<unsigned int> indices)
 	{
 		m_indices = indices;
 
-		glGenVertexArrays(1, &m_VAO);
-		glBindVertexArray(m_VAO);
-
 		glGenBuffers(1, &m_IBO);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IBO);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_indices.size() * sizeof(GLuint), &m_indices[0], GL_STATIC_DRAW);
@@ -27,10 +24,8 @@ Buffer::Buffer(std::vector<Vertex> myVertex, std::vector<unsigned int> indices)
 
 void Buffer::draw(std::shared_ptr<Shader> shader)
 {
-	 glBindVertexArray(m_VAO);
+	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IBO);
-    (*shader).setupAttribs(false);
+    (*shader).setupAttribs(true);
     glDrawElements(GL_TRIANGLES, (GLsizei)m_indices.size(), GL_UNSIGNED_INT, 0);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-    glBindVertexArray(0);
 }

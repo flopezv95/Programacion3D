@@ -40,14 +40,27 @@ int main() {
 
 	Mesh myMesh;
 
-	glm::vec3 color1(0.0f, 1.0f, 1.0f);
+	glm::vec3 color1(0.0f, 0.0f, 1.0f);
 	std::vector<Vertex> myVertex;
 	myVertex.push_back({ glm::vec3(0.5f, 0.5f, 0.0f), color1, glm::vec2(1.0f, 1.0f) });
 	myVertex.push_back({ glm::vec3(0.5f, -0.5f, 0.0f), color1, glm::vec2(1.0f, 0.0f) });
 	myVertex.push_back({ glm::vec3(-0.5f, -0.5f, 0.0f), color1, glm::vec2(0.0f, 0.0f) });
 	myVertex.push_back({ glm::vec3(-0.5f, 0.5f, 0.0f), color1, glm::vec2(0.0f, 1.0f) });
+	myVertex.push_back({ glm::vec3(0.5f, -0.5f, -0.8f), color1, glm::vec2(0.0f, 0.0f) });
+	myVertex.push_back({ glm::vec3(0.5f, 0.5f, -0.8f), color1, glm::vec2(0.0f, 1.0f) });
+	myVertex.push_back({ glm::vec3(-0.5f, 0.5f, -0.8f), color1, glm::vec2(0.0f, 0.0f) });
+	myVertex.push_back({ glm::vec3(-0.5f, -0.5f, -0.8f), color1, glm::vec2(1.0f, 0.0f) });
+	myVertex.push_back({ glm::vec3(-0.5f, 0.5f, -0.8f), color1, glm::vec2(1.0f, 1.0f) });
 
-	std::vector<GLuint> indices = { 0, 1, 2 };
+	std::vector<GLuint> indices = { 2, 1, 0, 0, 2, 3, 1, 0, 5, 1, 5, 4, 3, 2, 7, 7, 8, 3, 5, 6, 7 };
+	
+	std::vector<Vertex> myVertex2;
+	myVertex2.push_back({ glm::vec3(0.5f, 0.5f, 0.0f), color1, glm::vec2(1.0f, 1.0f) });
+	myVertex2.push_back({ glm::vec3(-0.5f, 0.5f, 0.0f), color1, glm::vec2(1.0f, 0.0f) });
+	myVertex2.push_back({ glm::vec3(0.5f, 0.5f, -0.8f), color1, glm::vec2(0.0f, 1.0f) });
+	myVertex2.push_back({ glm::vec3(-0.5f, 0.5f, -0.8f), color1, glm::vec2(0.0f, 0.0f) });
+
+	std::vector<GLuint> indices2 = { 0, 1, 2, 2, 1, 3 };
 
 	std::shared_ptr<Texture> frontTexture =Texture::load("data/front.png");
 	std::shared_ptr<Texture> topTexture = Texture::load("data/top.png");
@@ -55,9 +68,9 @@ int main() {
 	Material* myMaterial = new Material(frontTexture);
 	Material* myMaterial2 = new Material(topTexture);
 
-	myMesh.addBuffer(std::shared_ptr<Buffer>(new Buffer(myVertex, indices)),*myMaterial);
-	myMesh.addBuffer(std::shared_ptr<Buffer>(new Buffer(myVertex, indices)), *myMaterial2);
-
+	myMesh.addBuffer(std::shared_ptr<Buffer>(new Buffer(myVertex, indices)), *myMaterial);
+	myMesh.addBuffer(std::shared_ptr<Buffer>(new Buffer(myVertex2, indices2)), *myMaterial2);
+	
 	Model * modelEntity = new Model(std::shared_ptr<Mesh>(&myMesh));
 
 	Camera* myCamera=new Camera;
@@ -78,7 +91,7 @@ int main() {
 		lastTime = glfwGetTime();
 		if (myWorld->getNumEntities() > 0)
 		{
-			myWorld->draw(deltaTime, 32.0f );
+			myWorld->draw(deltaTime, -30.0f,true);
 		}
 		glUseProgram(0);
 		
