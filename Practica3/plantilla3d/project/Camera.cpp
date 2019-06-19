@@ -46,5 +46,5 @@ void Camera::prepare()
 	glViewport(mViewPort.x, mViewPort.y, mViewPort.z, mViewPort.w);
 	glScissor(mViewPort.x, mViewPort.y, mViewPort.z, mViewPort.w);
 	glClearColor(mClearColor.x, mClearColor.y, mClearColor.z,1.0);
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
