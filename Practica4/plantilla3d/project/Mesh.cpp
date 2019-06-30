@@ -49,6 +49,7 @@ std::shared_ptr<Mesh> Mesh::load(const char * filename, const std::shared_ptr<Sh
 		} 
 	}
 
+
 	return std::shared_ptr<Mesh>(retMesh);
 }
 

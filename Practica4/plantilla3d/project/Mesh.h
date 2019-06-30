@@ -34,4 +34,5 @@ private:
 	std::shared_ptr<Shader> mShader;
 	std::vector<unsigned int> mIndexArray;
 	std::vector<Vertex> mVertexArray;
+	std::string mTextureName;
 };

@@ -19,8 +19,50 @@
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
+float posZ = 0.0f;
+float posX = 0.0f;
+float angleToSpin = 0.0f;
 
 int Init(GLFWwindow* win);
+
+static void inputCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+	if (key == GLFW_KEY_UP && action == GLFW_PRESS)
+	{
+		posZ += 0.5f;
+	}
+	else if (key == GLFW_KEY_DOWN && action == GLFW_PRESS)
+	{
+		posZ -= 0.5f;
+	}
+	if (key == GLFW_KEY_RIGHT && action == GLFW_PRESS)
+	{
+		posX += 0.5f;
+	}
+	else if (key == GLFW_KEY_LEFT && action == GLFW_PRESS)
+	{
+		posX -= 0.5f;
+	}
+
+}
+
+static void mouseCallback(GLFWwindow* window, int button, int action, int mods)
+{
+
+	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
+	{
+		angleToSpin = -30.0f;
+	}
+	else if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS)
+	{
+		angleToSpin = +30.0f;
+	}
+	else if (button == GLFW_MOUSE_BUTTON_MIDDLE && action == GLFW_PRESS)
+	{
+		angleToSpin = 0.0f;
+	}
+
+}
 
 int main() {
 	// init glfw
@@ -29,24 +71,24 @@ int main() {
 		std::cout << "could not initialize glfw" << std::endl;
 		return -1;
 	}
-
+	
 	GLFWwindow* win = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Practica4", nullptr, nullptr);
-
 
 	if (Init(win)!=0)
 	{
 		return -1;
 	}
 
-	std::shared_ptr<Mesh> myMesh = Mesh::load("data/box_stack.obj");
+	glfwSetKeyCallback(win, inputCallback);
+	glfwSetMouseButtonCallback(win, mouseCallback);
+
+	std::shared_ptr<Mesh> myMesh = Mesh::load("data/gunslinger.obj");
 	Mesh cowboyMesh;
 
 	std::shared_ptr<Texture> topTexture = Texture::load("data/top.png");
 
-	//Material* myMaterial = new Material(myMesh.get()->getVertex().);
 	Material* myMaterial2 = new Material(topTexture);
 
-	//NoNecesito el array estupido que cree...ademas hacer lo mismo con los materiales que hice con los shapes.
 
 	cowboyMesh.addBuffer(std::shared_ptr<Buffer>(new Buffer(myMesh.get()->getVertex(), myMesh.get()->getIndex())), *myMaterial2);
 
@@ -69,9 +111,10 @@ int main() {
 		// get delta time
 		float deltaTime = static_cast<float>(glfwGetTime() - lastTime);
 		lastTime = glfwGetTime();
+		State::modelMatrix = glm::translate(glm::mat4(), glm::vec3(posX, 0.0f, posZ));
 		if (myWorld->getNumEntities() > 0)
 		{
-			myWorld->draw(deltaTime, 0.0f);
+			myWorld->draw(deltaTime, angleToSpin,true);
 		}
 		glUseProgram(0);
 		
