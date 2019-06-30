@@ -71,9 +71,8 @@ void Material::prepare(float deltaTime, float angleRot, float rotateInTime)
 	glm::mat4 proj = State::projectionMatrix;
 	glm::mat4 view = State::viewMatrix;
 	glm::mat4 model = State::modelMatrix;
-	model = glm::rotate(model, glm::radians(angle), glm::vec3(-2.0f, 3.0f, 0.0f));
+	model = glm::rotate(model, glm::radians(angle), glm::vec3(0.0f, 1.0f, 0.0f));
 	myShader->setMatrix(State::defaultShader->getLocation("mvp"), proj*view*model);
-	//myShader->setupAttribs(bUseTexture);
 	if (bUseTexture)
 	{
 		

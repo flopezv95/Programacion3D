@@ -5,7 +5,6 @@
 #include "Buffer.h"
 #include "State.h"
 #include "Material.h"
-#include "Vertex.h"
 #include "../glm/gtc/matrix_transform.hpp"
 #include "../lib/tinyobjloader/tiny_obj_loader.h" 
 
@@ -37,7 +36,6 @@ std::shared_ptr<Mesh> Mesh::load(const char * filename, const std::shared_ptr<Sh
 		for (const auto& index : shape.mesh.indices) 
 		{ 
 			Vertex vertexAux; 
-			VertexIndex * vertexAndIndex = new VertexIndex();
 			vertexAux.position.x = attrib.vertices[3 * index.vertex_index + 0];    
 			vertexAux.position.y = attrib.vertices[3 * index.vertex_index + 1];    
 			vertexAux.position.z = attrib.vertices[3 * index.vertex_index + 2];    
@@ -48,9 +46,6 @@ std::shared_ptr<Mesh> Mesh::load(const char * filename, const std::shared_ptr<Sh
 			vertexAux.m_textureCoord.y = attrib.texcoords[2 * index.texcoord_index + 1];
 			retMesh->mVertexArray.push_back(vertexAux);
 			retMesh->mIndexArray.push_back(retMesh->mIndexArray.size());
-			vertexAndIndex->vertex = vertexAux;
-			vertexAndIndex->Index = retMesh->mIndexArray.size();
-			retMesh->mVertexAndIndexArray.push_back(vertexAndIndex);
 		} 
 	}
 
@@ -94,9 +89,9 @@ std::shared_ptr<Shader>& Mesh::getShader()
 	return mShader;
 }
 
-std::vector<VertexIndex*> Mesh::getVertexAndIndex()
+std::vector<Vertex> Mesh::getVertex()
 {
-	return mVertexAndIndexArray;
+	return mVertexArray;
 }
 
 std::vector<unsigned int> Mesh::getIndex()
