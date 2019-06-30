@@ -38,49 +38,52 @@ int main() {
 		return -1;
 	}
 
-	Mesh myMesh;
+	std::shared_ptr<Mesh> myMesh = Mesh::load("Models/box_stack.obj");
+	Mesh cowboyMesh;
+	//glm::vec3 color1(0.0f, 0.0f, 1.0f);
+	//std::vector<Vertex> myVertex;
+	//myVertex.push_back({ glm::vec3(0.5f, 0.5f, 0.0f), color1, glm::vec2(1.0f, 1.0f) }); //0
+	//myVertex.push_back({ glm::vec3(0.5f, -0.5f, 0.0f), color1, glm::vec2(1.0f, 0.0f) }); //1 
+	//myVertex.push_back({ glm::vec3(-0.5f, -0.5f, 0.0f), color1, glm::vec2(0.0f, 0.0f) }); //2 
+	//myVertex.push_back({ glm::vec3(-0.5f, 0.5f, 0.0f), color1, glm::vec2(0.0f, 1.0f) }); //3 
+	//myVertex.push_back({ glm::vec3(0.5f, -0.5f, -0.8f), color1, glm::vec2(0.0f, 0.0f) }); //4 
+	//myVertex.push_back({ glm::vec3(0.5f, 0.5f, -0.8f), color1, glm::vec2(0.0f, 1.0f) }); //5 
+	//myVertex.push_back({ glm::vec3(-0.5f, 0.5f, -0.8f), color1, glm::vec2(1.0f, 1.0f) }); //6 
+	//myVertex.push_back({ glm::vec3(-0.5f, -0.5f, -0.8f), color1, glm::vec2(1.0f, 0.0f) }); //7 
 
-	glm::vec3 color1(0.0f, 0.0f, 1.0f);
-	std::vector<Vertex> myVertex;
-	myVertex.push_back({ glm::vec3(0.5f, 0.5f, 0.0f), color1, glm::vec2(1.0f, 1.0f) }); //0
-	myVertex.push_back({ glm::vec3(0.5f, -0.5f, 0.0f), color1, glm::vec2(1.0f, 0.0f) }); //1 
-	myVertex.push_back({ glm::vec3(-0.5f, -0.5f, 0.0f), color1, glm::vec2(0.0f, 0.0f) }); //2 
-	myVertex.push_back({ glm::vec3(-0.5f, 0.5f, 0.0f), color1, glm::vec2(0.0f, 1.0f) }); //3 
-	myVertex.push_back({ glm::vec3(0.5f, -0.5f, -0.8f), color1, glm::vec2(0.0f, 0.0f) }); //4 
-	myVertex.push_back({ glm::vec3(0.5f, 0.5f, -0.8f), color1, glm::vec2(0.0f, 1.0f) }); //5 
-	myVertex.push_back({ glm::vec3(-0.5f, 0.5f, -0.8f), color1, glm::vec2(1.0f, 1.0f) }); //6 
-	myVertex.push_back({ glm::vec3(-0.5f, -0.5f, -0.8f), color1, glm::vec2(1.0f, 0.0f) }); //7 
+	//std::vector<GLuint> indices = { 0, 1, 2, 0, 3, 2, 0, 1, 5, 1, 4, 5, 3, 7, 2, 6, 7, 3, 5, 7, 6, 5, 7, 4 };
+	//
+	//std::vector<Vertex> myVertex2;
+	//myVertex2.push_back({ glm::vec3(0.5f, 0.5f, 0.0f), color1, glm::vec2(1.0f, 1.0f) }); //0
+	//myVertex2.push_back({ glm::vec3(-0.5f, 0.5f, 0.0f), color1, glm::vec2(1.0f, 0.0f) });  //1
+	//myVertex2.push_back({ glm::vec3(0.5f, 0.5f, -0.8f), color1, glm::vec2(0.0f, 1.0f) });  //2
+	//myVertex2.push_back({ glm::vec3(-0.5f, 0.5f, -0.8f), color1, glm::vec2(0.0f, 0.0f) });  //3
 
-	std::vector<GLuint> indices = { 0, 1, 2, 0, 3, 2, 0, 1, 5, 1, 4, 5, 3, 7, 2, 6, 7, 3, 5, 7, 6, 5, 7, 4 };
-	
-	std::vector<Vertex> myVertex2;
-	myVertex2.push_back({ glm::vec3(0.5f, 0.5f, 0.0f), color1, glm::vec2(1.0f, 1.0f) }); //0
-	myVertex2.push_back({ glm::vec3(-0.5f, 0.5f, 0.0f), color1, glm::vec2(1.0f, 0.0f) });  //1
-	myVertex2.push_back({ glm::vec3(0.5f, 0.5f, -0.8f), color1, glm::vec2(0.0f, 1.0f) });  //2
-	myVertex2.push_back({ glm::vec3(-0.5f, 0.5f, -0.8f), color1, glm::vec2(0.0f, 0.0f) });  //3
+	//std::vector<GLuint> indices2 = { 0, 2, 1, 2, 1, 3 };
 
-	std::vector<GLuint> indices2 = { 0, 2, 1, 2, 1, 3 };
+	//std::vector<Vertex> myVertex3;
+	//myVertex3.push_back({ glm::vec3(0.5f, -0.5f, 0.0f), color1, glm::vec2(1.0f, 1.0f) });  //0
+	//myVertex3.push_back({ glm::vec3(-0.5f, -0.5f, 0.0f), color1, glm::vec2(1.0f, 0.0f) });  //1
+	//myVertex3.push_back({ glm::vec3(0.5f, -0.5f, -0.8f), color1, glm::vec2(0.0f, 1.0f) });  //2
+	//myVertex3.push_back({ glm::vec3(-0.5f, -0.5f, -0.8f), color1, glm::vec2(0.0f, 0.0f) }); //3
 
-	std::vector<Vertex> myVertex3;
-	myVertex3.push_back({ glm::vec3(0.5f, -0.5f, 0.0f), color1, glm::vec2(1.0f, 1.0f) });  //0
-	myVertex3.push_back({ glm::vec3(-0.5f, -0.5f, 0.0f), color1, glm::vec2(1.0f, 0.0f) });  //1
-	myVertex3.push_back({ glm::vec3(0.5f, -0.5f, -0.8f), color1, glm::vec2(0.0f, 1.0f) });  //2
-	myVertex3.push_back({ glm::vec3(-0.5f, -0.5f, -0.8f), color1, glm::vec2(0.0f, 0.0f) }); //3
+	//std::vector<GLuint> indices3 = {0, 2, 1, 2, 1, 3 };
 
-	std::vector<GLuint> indices3 = {0, 2, 1, 2, 1, 3 };
-
-	std::shared_ptr<Texture> frontTexture =Texture::load("data/front.png");
+	//std::shared_ptr<Texture> frontTexture =Texture::load("data/front.png");
 	std::shared_ptr<Texture> topTexture = Texture::load("data/top.png");
 
-	Material* myMaterial = new Material(frontTexture);
+	//Material* myMaterial = new Material(myMesh.get()->getVertex().);
 	Material* myMaterial2 = new Material(topTexture);
-	Material* myMaterial3 = new Material(topTexture);
 
-	myMesh.addBuffer(std::shared_ptr<Buffer>(new Buffer(myVertex, indices)), *myMaterial);
-	myMesh.addBuffer(std::shared_ptr<Buffer>(new Buffer(myVertex2, indices2)), *myMaterial2);
-    myMesh.addBuffer(std::shared_ptr<Buffer>(new Buffer(myVertex3, indices3)), *myMaterial3);
+	//NoNecesito el array estupido que cree...ademas hacer lo mismo con los materiales que hice con los shapes.
+
+	for (VertexIndex* tempVertex : myMesh.get()->getVertexAndIndex())
+	{
+		cowboyMesh.addBuffer(std::shared_ptr<Buffer>(new Buffer(tempVertex->vertex, tempVertex->Index)), *myMaterial2);
+	}
+
 	
-	Model * modelEntity = new Model(std::shared_ptr<Mesh>(&myMesh));
+	Model * modelEntity = new Model(myMesh);
 
 	Camera* myCamera=new Camera;
 	myCamera->setProjection(glm::perspective<float>(glm::radians(45.0f), static_cast<float>(SCREEN_WIDTH) / SCREEN_HEIGHT, 0.1f, 100.0f));
