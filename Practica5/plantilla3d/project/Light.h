@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include"../glew/GL/glew.h"
-#include "../glm/glm.hpp"
+#include "Entity.h"
 
 class Shader;
 
@@ -11,7 +11,7 @@ enum TType
 	EPOINT,
 };
 
-class Light
+class Light :public Entity
 {
 public:
 	TType   getType() const; 

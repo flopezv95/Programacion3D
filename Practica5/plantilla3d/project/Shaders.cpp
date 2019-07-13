@@ -57,6 +57,7 @@ Shader::Shader(const std::string& vertexPath, const std::string& fragmentPath)
 	m_vposLoc = glGetAttribLocation(idShader, "vpos");
 	m_vcolorLoc = glGetAttribLocation(idShader, "vcolor");
 	m_vtextLoc = glGetAttribLocation(idShader, "vtex");
+	m_vnormal = glGetAttribLocation(idShader, "vnormal");
 
 }
 
@@ -95,6 +96,11 @@ void Shader::setupAttribs(bool bThereIsTex)
 	if (m_vtextLoc != -1) { 
 		glEnableVertexAttribArray(m_vtextLoc); 
 		glVertexAttribPointer(m_vtextLoc, 2, GL_FLOAT, false, sizeof(Vertex), reinterpret_cast<const void*>(offsetof(Vertex, m_textureCoord))); 
+	}
+
+	if (m_vnormal != -1) {
+		glEnableVertexAttribArray(m_vnormal);
+		glVertexAttribPointer(m_vnormal, 3, GL_FLOAT, false, sizeof(Vertex), reinterpret_cast<const void*>(offsetof(Vertex, m_normal)));
 	}
 }
 

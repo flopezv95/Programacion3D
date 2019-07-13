@@ -27,6 +27,7 @@ private:
 	int m_vposLoc;
 	int m_vcolorLoc;
 	int m_vtextLoc;
+	int m_vnormal;
 	glm::mat4 m_mvp;
 	
 };

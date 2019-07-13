@@ -1,9 +1,11 @@
 #pragma once
 #include <iostream>
 #include <vector>
+#include "../glm/glm.hpp"
 
 class Camera;
 class Entity;
+class Light;
 
 class World
 {
@@ -14,10 +16,14 @@ public:
 	size_t getNumEntities() const;
 	const std::shared_ptr<Entity>& getEntity(size_t index) const;
 	std::shared_ptr<Entity>& getEntity(size_t index);
+	const glm::vec3& getAmbient(); 
+	void  setAmbient(const glm::vec3& ambient);
 	void update(float deltaTime); 
 	void draw(float deltaTime, float angle, bool rotateInTime = false);
 
 private:
 	std::vector <std::shared_ptr<Entity>> myEntityList;
 	std::vector <std::shared_ptr<Camera>> myCameraList;
+	std::vector <std::shared_ptr<Light>> m_myLightList;
+	glm::vec3 m_ambientLight;
 };
