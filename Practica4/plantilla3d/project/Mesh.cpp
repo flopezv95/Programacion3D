@@ -21,7 +21,6 @@ std::shared_ptr<Mesh> Mesh::load(const char * filename, const std::shared_ptr<Sh
 	{
 		retMesh->mShader = State::defaultShader;
 	}
-
 	tinyobj::attrib_t attrib;  
 	std::vector<tinyobj::shape_t> shapes; 
 	std::vector<tinyobj::material_t> materials; 

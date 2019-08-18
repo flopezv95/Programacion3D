@@ -85,3 +85,23 @@ void Material::prepare(float deltaTime, float angleRot, float rotateInTime)
 		myShader->setInt(myShader->getLocation("useTexture"), 0);
 	}
 }
+
+const glm::vec4 & Material::getColor() const
+{
+	return m_color;
+}
+
+void Material::setColor(const glm::vec4 & color)
+{
+	m_color = color;
+}
+
+uint8_t Material::getShininess() const
+{
+	return m_shininess;
+}
+
+void Material::setShininess(uint8_t shininess)
+{
+	m_shininess = shininess;
+}

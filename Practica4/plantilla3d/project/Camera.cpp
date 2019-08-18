@@ -42,7 +42,6 @@ void Camera::setClearColor(const glm::vec3 & color)
 void Camera::prepare()
 {
 	State::projectionMatrix = mProjection;
-	State::viewMatrix = glm::lookAt(glm::vec3(0.0f, 0.0f, 6.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	glViewport(mViewPort.x, mViewPort.y, mViewPort.z, mViewPort.w);
 	glScissor(mViewPort.x, mViewPort.y, mViewPort.z, mViewPort.w);
 	glClearColor(mClearColor.x, mClearColor.y, mClearColor.z,1.0);

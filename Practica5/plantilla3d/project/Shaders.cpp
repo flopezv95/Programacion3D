@@ -139,6 +139,26 @@ int Shader::getMatrix(const char * name)
 	return glGetUniformLocation(idShader, name);
 }
 
+void Shader::setModelViewMatrix(int loc, const glm::mat4 & matrix)
+{
+	glUniformMatrix4fv(loc, 1, false, glm::value_ptr(matrix));
+}
+
+int Shader::getModelViewMatrix(const char * name)
+{
+	return glGetUniformLocation(idShader, name);
+}
+
+void Shader::setNormalMatrix(int loc, const glm::mat4 & matrix)
+{
+	glUniformMatrix4fv(loc, 1, false, glm::value_ptr(matrix));
+}
+
+int Shader::getNormalMatrix(const char * name)
+{
+	return glGetUniformLocation(idShader, name);
+}
+
 
 std::string readString(const std::string& filename) 
 { 

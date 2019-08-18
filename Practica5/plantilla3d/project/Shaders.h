@@ -19,6 +19,10 @@ public:
 	void  setVec4(int loc, const glm::vec4& vec); 
 	void  setMatrix(int loc, const glm::mat4& matrix);
 	int getMatrix(const char* name);
+	void  setModelViewMatrix(int loc, const glm::mat4& matrix);
+	int getModelViewMatrix(const char* name);
+	void  setNormalMatrix(int loc, const glm::mat4& matrix);
+	int getNormalMatrix(const char* name);
 	void  use();
 private:
 	uint32_t vertexShader;
